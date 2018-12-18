@@ -1,0 +1,16 @@
+Package: FinalProject
+Version: 0.0
+Date: 2018-12-18
+Title: Bioinformatics Final Project
+Authors@R: person("Amanda", "Bardeau", role = c("aut", "cre"),
+                  email = "amanda.bardeau@gmail.com")
+Author: Amanda Bardeau [aut, cre]
+Maintainer: Amanda Bardeau <amanda.bardeau@gmail.com>
+Suggests: knitr
+VignetteBuilder: knitr
+Imports: ggplot2
+Description: This package includes functions to calculate germination percentages and 
+  percent differences between germination and vigor percentages. This package also 
+  displays data using barplots. 
+Url: https://github.com/abardeau/Final_Project
+License: GPL-3

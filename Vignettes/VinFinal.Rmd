@@ -1,0 +1,74 @@
+---
+title: "Project"
+output: html_document
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Project}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(FinalProject)
+#read in data
+Germ <- read.csv("CHIII_Storage_Time0_Germination.csv")
+Vigor <- read.csv("CHIII_Storage_Time0_Vigor.csv")
+
+#sort data 
+Germ <- Germ[order(Germ$ID, Germ$Rep),]
+Vigor <- Vigor[order(Vigor$ID, Vigor$Rep),]
+
+#Adding PGerm for Germ Test as Column
+PGerm <- Germ_PGerm(Germ)
+Germ <- cbind(Germ, PGerm)
+
+#Adding PGerm for Vigor Test as Column
+PGerm <- Vigor_PGerm(Vigor)
+Vigor <- cbind(Vigor, PGerm)
+
+#Adding Weight per plant for Germ Test as Column
+WPP <- Germ_WPP(Germ)
+Germ <- cbind(Germ,WPP)
+
+#Adding Weight per plant for Vigor Test as Column
+WPP <- Vigor_WPP(Vigor)
+Vigor <- cbind(Vigor, WPP)
+
+##Adding Percent diff for Germ - Vigor Test as Column
+PDiff <- PDiff(Germ, Vigor)
+Germ <- cbind (Germ, PDiff)
+
+#Separating locations to make graphs
+GCFAR <- Germ[Germ$Location=="CFAR",]
+
+GMonmouth <- Germ[Germ$Location=="Monmouth",]
+
+VCFAR <- Vigor[Vigor$Location=="CFAR",]
+
+VMonmouth <- Vigor[Vigor$Location=="Monmouth",]
+
+#Making graphs
+GermCFAR <- Mybar(GCFAR, x="Rep", y="PGerm", fill="Cultivar", title = "Germ at CFAR")
+
+VigorCFAR <- Mybar(VCFAR, x="Rep", y="PGerm", fill="Cultivar", title = "Vigor at CFAR")
+
+GermMonmouth <-  Mybar(GMonmouth, x="Rep", y="PGerm", fill="Cultivar", title = "Germ at Monmouth")
+  
+VigorMonmouth <- Mybar(VMonmouth, x="Rep", y="PGerm", fill="Cultivar", title = "Vigor at Monmouth")
+
+
+WPPGCFAR <- Mybar(GCFAR, x="Rep", y="WPP", fill="Cultivar", title = "Dry Weight of Germ at CFAR")
+
+WPPGMonmouth <- Mybar(GMonmouth, x="Rep", y="WPP", fill="Cultivar", title = "Dry Weight of Germ at Monmouth")
+
+WPPVCFAR <- Mybar(VCFAR, x="Rep", y="WPP", fill="Cultivar", title = "Dry Weight of Vigor at CFAR")
+
+WPPVMonmouth <- Mybar(VMonmouth, x="Rep", y="WPP", fill="Cultivar", title = "Dry Weight of Vigor at Monmouth")
+  
+
+PDiffCFAR <-  Mybar(GCFAR, x="Rep", y="PDiff", fill="Cultivar", title = "Dry Weight % Diff at CFAR")
+
+PDiffMonmouth <- Mybar(GCFAR, x="Rep", y="PDiff", fill="Cultivar", title = "Dry Weight % Diff at Monmouth")
+
+```

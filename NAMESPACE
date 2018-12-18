@@ -1,0 +1,2 @@
+export(Germ_PGerm, Vigor_PGerm, Germ_WPP, Vigor_WPP, PDiff, Mybar)
+importFrom("ggplot2", "aes_string", "geom_bar", "ggplot", "ggtitle")
